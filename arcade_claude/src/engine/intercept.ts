@@ -1,6 +1,6 @@
 // Ball-flight prediction and intercept solving, shared by the AI (from its remembered ball state),
 // the human catch-assist (from the true ball the human can see) and the engine.
-import * as C from './constants';
+import { ballStep } from './physics';
 
 export const REACH = { field: 1.3, keeper: 1.8, intendedBonus: 0.35, z: 2.6, zKeeper: 3.2 };
 export const TRAJ_DT = 1 / 30;
@@ -9,20 +9,12 @@ const hyp = (a: number, b: number) => Math.sqrt(a * a + b * b);
 export interface BallState { x: number; y: number; z: number; vx: number; vy: number; vz: number }
 export interface TrajPt { x: number; y: number; z: number; t: number }
 
-/** Ballistic flight with the same bounce/roll rules as the engine, sampled every TRAJ_DT. */
+/** Flight prediction with the engine's own ball integrator (gravity, drag, bounce), sampled every TRAJ_DT. */
 export function ballTraj(b: BallState, T = 2.2): TrajPt[] {
   const out: TrajPt[] = [{ x: b.x, y: b.y, z: b.z, t: 0 }];
-  let { x, y, z, vx, vy, vz } = b;
+  const p = { x: b.x, y: b.y, z: b.z, vx: b.vx, vy: b.vy, vz: b.vz };
   const n = Math.round(T / TRAJ_DT);
-  for (let i = 1; i <= n; i++) {
-    vz -= C.G * TRAJ_DT; x += vx * TRAJ_DT; y += vy * TRAJ_DT; z += vz * TRAJ_DT;
-    if (z < C.BALL_R) {
-      z = C.BALL_R;
-      if (Math.abs(vz) > 1.2) { vz = -vz * 0.45; vx *= 0.75; vy *= 0.75; }
-      else { vz = 0; const f = Math.max(0, 1 - 2.2 * TRAJ_DT); vx *= f; vy *= f; }
-    }
-    out.push({ x, y, z, t: i * TRAJ_DT });
-  }
+  for (let i = 1; i <= n; i++) { ballStep(p, TRAJ_DT / 2); ballStep(p, TRAJ_DT / 2); out.push({ x: p.x, y: p.y, z: p.z, t: i * TRAJ_DT }); }
   return out;
 }
 

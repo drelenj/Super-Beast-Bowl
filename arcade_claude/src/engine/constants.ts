@@ -25,3 +25,10 @@ export const TOSS_IN_CLEAR = 3;
 export const G = 9.81;
 export const DT = 1 / 60;                   // fixed simulation step
 export const BREAK_SHORT = 120, BREAK_HALF = 600; // shown as skippable screens
+// ---- arcade-2 additions (Rulebook 1.0) ----
+export const TIMEOUTS_PER_HALF = 2, TIMEOUT_LEN = 45;  // 2 per team per half, 45 s; 1 in overtime; none in sudden death
+export const TOSS_READY = 1.5, TOSS_LIMIT = 4;         // toss-in: ready after 1.5 s, thrown within 4 s of ready
+export const CONTROL_TIME = 0.5;                       // possession after 500 ms of uncontested control
+export const HUNT_LIMIT = 6;                           // Hunt repeats if the ball has not left the circle after 6 s
+export const BREAK_OT = 180, BREAK_SD = 60;            // 3 min before overtime, 1 min before each sudden-death period
+export const HOLD_RATE = 0.012;                        // BEHAVIORAL: base chance per check of a holding minor by a tight marker

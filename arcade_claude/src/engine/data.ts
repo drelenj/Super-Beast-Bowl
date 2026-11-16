@@ -37,8 +37,13 @@ export function buildLineup(t: TeamData): Lineup {
       field.push({ p: fieldP[k++], line, slotY });
     }
   }
+  // gameday 22: the 12 starters plus 10 reserves, which must include a reserve Keeper and a reserve Archer
   const used = new Set([keeper.id, archer.id, ...fieldP.map((p) => p.id)]);
-  const bench = t.players.filter((p) => !used.has(p.id) && p.role !== 'Outside projected 25').slice(0, 10);
+  const rest = t.players.filter((p) => !used.has(p.id)).sort((a, b) => (a.role === 'Outside projected 25' ? 1 : 0) - (b.role === 'Outside projected 25' ? 1 : 0) || b.ovr - a.ovr || a.id.localeCompare(b.id));
+  const rk = rest.find((p) => p.pos === 'KPR'), ra = rest.find((p) => p.pos === 'ARC');
+  const bench: PlayerData[] = [];
+  if (rk) bench.push(rk); if (ra) bench.push(ra);
+  for (const p of rest) { if (bench.length >= 10) break; if (p.pos !== 'KPR' && p.pos !== 'ARC') bench.push(p); }
   return { field, keeper, archer, bench };
 }
 

@@ -7,7 +7,7 @@ import * as C from './constants';
 const hyp = (...v: number[]) => { let s = 0; for (const x of v) s += x * x; return Math.sqrt(s); };
 import type { Engine } from './engine';
 import { Athlete, Intent, NO_INTENT } from './types';
-import { REACH, TRAJ_DT, ballTraj, interceptAt } from './intercept';
+import { TRAJ_DT, ballTraj, interceptAt } from './intercept';
 
 const FOV = (200 * Math.PI) / 180;
 const STALE = 3.0;
@@ -108,7 +108,7 @@ function bestPass(e: Engine, a: Athlete, snap = false): number {
     const o = e.ath[t.idx];
     if (!e.canAct(o)) continue;
     const d = hyp(t.x - a.x, t.y - a.y);
-    if (d < 4 || d > 38) continue;
+    if (d < 6 || d > 55) continue;
     const gain = e.u(a.team, t.x) - e.u(a.team, a.x);
     const open = Math.min(9, opponentsNear(list, a, t.x, t.y));
     // passing-lane safety: closest seen opponent to segment
@@ -136,18 +136,18 @@ function carrierThink(e: Engine, a: Athlete) {
     if (e.time - e.holderSince > 0.6) { const r = bestPass(e, a, true); if (r >= 0) { a.plan.pass = r; return; } }
     setTarget(a, a.x, a.y, false); return;
   }
-  const shootRange = 14 + 9 * q + (a.d.pos === 'STR' ? 4 : 0) + (a.d.pos === 'PFD' ? 2 : 0);
+  const shootRange = 20 + 16 * a.a.shotAcc + (a.d.pos === 'STR' ? 5 : 0) + (a.d.pos === 'PFD' ? 2 : 0);
   const angleOk = Math.abs(a.y) < Math.max(4, Math.abs(gx - a.x) * 0.9);
   const kz = e.inKZ(a.x, a.y, gx);
   const rng = e.rng;
   // keeper position (if seen) affects carry-in choice
   const keeper = list.find((s) => s.team !== a.team && s.role === 'keeper');
   const keeperOff = !keeper || hyp(keeper.x - gx, keeper.y) > 4;
-  if (dGoal < 6 && keeperOff && pressure > 2) { setTarget(a, gx + Math.sign(gx) * 2, 0, true); return; } // carry goal attempt
-  if ((dGoal < shootRange && angleOk && rng.chance(0.18 + (shootRange - dGoal) * 0.04)) || (kz && a.kzT > 2.5) || (e.playClock < 4 && dGoal < 30)) {
+  if (dGoal < 12 && keeperOff && pressure > 4) { setTarget(a, gx + Math.sign(gx) * 2, 0, true); return; } // carry goal attempt
+  if ((dGoal < shootRange && angleOk && rng.chance((0.16 + (shootRange - dGoal) * 0.03) / e.diffFor(a.team).noise)) || (kz && a.kzT > 2.5) || (e.playClock < 3 && dGoal < 45)) {
     a.plan.shoot = true; return;
   }
-  const mustMove = pressure < 3.2 || (e.tackleCount === 1 && pressure < 5) || e.playClock < 8;
+  const mustMove = pressure < 6 || (e.tackleCount === 1 && pressure < 9) || e.playClock < 8;
   const r = bestPass(e, a);
   if (r >= 0 && (mustMove ? rng.chance(0.7) : rng.chance(0.06))) { a.plan.pass = r; return; }
   // advance with avoidance
@@ -155,11 +155,11 @@ function carrierThink(e: Engine, a: Athlete) {
   for (const s of list) {
     if (s.team === a.team || s.role === 'archer' || s.frozen) continue;
     const dx = a.x - s.x, dy = a.y - s.y, d = hyp(dx, dy);
-    if (d < 10) { ax += dx / d * (10 - d); ay += dy / d * (10 - d); }
+    if (d < 16) { ax += dx / d * (16 - d); ay += dy / d * (16 - d); }
   }
   const dir = e.teams[a.team].dir;
   const tyGoal = -a.y * 0.25;
-  setTarget(a, a.x + dir * 10 + ax * 0.25, a.y + tyGoal + ay * 0.6, true);
+  setTarget(a, a.x + dir * 18 + ax * 0.3, a.y + tyGoal * 2 + ay * 0.7, a.stamina > 0.2);
   if (kz && a.kzT > 1.5) setTarget(a, gx, 0, true);
 }
 
@@ -175,7 +175,7 @@ function supportThink(e: Engine, a: Athlete, b: { x: number; y: number }) {
   for (const s of list) {
     if (s.team === a.team || s.role === 'archer') continue;
     const dx = x0 - s.x, dy = y - s.y, d = hyp(dx, dy);
-    if (d < 7 && d > 0.01) { ox += dx / d * (7 - d); oy += dy / d * (7 - d); }
+    if (d < 10 && d > 0.01) { ox += dx / d * (10 - d); oy += dy / d * (10 - d); }
   }
   let tx = x0 + ox * 0.5, ty = y + oy * 0.6;
   // stay out of the opponent Keeper Zone (5 s limit)
@@ -198,7 +198,7 @@ function defendThink(e: Engine, a: Athlete, b: { x: number; y: number; holder: n
   if (closer < chasers + (a.line === 2 ? 0 : 0) && !carrier.frozen && !immune) {
     const lead = Math.min(1, myD / (a.a.top + 0.1));
     setTarget(a, carrier.x + carrier.vx * lead, carrier.y + carrier.vy * lead, true);
-    if (myD < 1.45) a.plan.tackle = true;
+    if (c && myD < e.tackleReach(a, c)) a.plan.tackle = true;
     return;
   }
   // mark: goal-side of the nearest seen attacker to my zone spot
@@ -226,8 +226,8 @@ function looseThink(e: Engine, a: Athlete, b: { x: number; y: number; z: number 
   const age = Math.min(1.2, e.time - m.t);
   const traj = ballTraj({ x: m.x, y: m.y, z: m.z, vx: m.vx, vy: m.vy, vz: m.vz }, 2.4);
   const k0 = Math.round(age / TRAJ_DT);
-  const speed = a.a.top * 0.85;
-  const mine = interceptAt(traj, k0, a.x, a.y, speed, REACH.field);
+  const speed = a.a.top * 0.7;
+  const mine = interceptAt(traj, k0, a.x, a.y, speed, e.hReachOf(a, e.ball.receiver === a.idx), a.body.reach + a.a.jumpH);
   // the pass call (who threw it, who it is for) is public: the receiver hears it
   const intended = e.ball.receiver === a.idx;
   const passerTeam = e.ball.passer >= 0 ? e.ath[e.ball.passer].team : -1;
@@ -239,7 +239,7 @@ function looseThink(e: Engine, a: Athlete, b: { x: number; y: number; z: number 
   let quicker = 0;
   for (const s of list) {
     if (s.team !== a.team || s.role === 'archer' || s.frozen) continue;
-    const r = interceptAt(traj, k0, s.x, s.y, speed, REACH.field);
+    const r = interceptAt(traj, k0, s.x, s.y, speed, 1.6);
     if (r.t < mine.t - 0.05) quicker++;
   }
   if (quicker < 2) { setTarget(a, mine.x, mine.y, true); return; }
@@ -258,37 +258,49 @@ function keeperThink(e: Engine, a: Athlete, b: { x: number; y: number; holder: n
     const myD = hyp(b.x - a.x, b.y - a.y);
     if (opponentsNear(list, a, b.x, b.y) > myD * 0.9) { setTarget(a, b.x, b.y, true); return; }
   }
-  if (holderTeam >= 0 && holderTeam !== a.team && dB < 9 && e.phase === 'live') {
+  if (holderTeam >= 0 && holderTeam !== a.team && dB < 11 && e.phase === 'live') {
     const c = list.find((s) => s.idx === b.holder);
-    if (c && !c.frozen) { setTarget(a, c.x, c.y, true); if (hyp(c.x - a.x, c.y - a.y) < 1.45) a.plan.tackle = true; return; }
+    if (c && !c.frozen) { setTarget(a, c.x, c.y, true); if (hyp(c.x - a.x, c.y - a.y) < e.tackleReach(a, e.ath[b.holder])) a.plan.tackle = true; return; }
   }
-  const r = Math.min(3.2, 0.8 + dB * 0.06);
+  const r = Math.min(3.4, 0.9 + dB * 0.05 * (0.6 + 0.8 * (a.tech.keeperPositioning - 60) / 39));
   const ang = Math.atan2(b.y, (b.x - og) * dir);
   setTarget(a, og + dir * Math.max(0.6, Math.cos(ang) * r), Math.sin(ang) * r, dB < 25);
 }
 
 function archerThink(e: Engine, a: Athlete) {
+  // The Archer knows the legal-arrow constraint (public rule): live play, ball out of the circle in a Hunt, target not
+  // frozen / recovering / immune (he reads the red and amber status lights), target inside his OWN half. He judges all of
+  // that from what he sees, with a safety margin set by his ARCADE-DERIVED Archery Discipline; stale sight = no shot.
   const t = e.teams[a.team];
   if (e.phase !== 'live' || e.huntActive || t.arrowsLeft <= 0 || t.freezesLeft <= 0) return;
-  if (e.time - a.lastFire < 2.2 + (1 - a.a.archery) * 1.5) return;
-  const list = seen(e, a);
+  if (e.time - a.lastFire < 1.6 + (1 - a.a.archery) * 1.2) return;
+  const noise = e.diffFor(a.team).noise;
+  const margin = (1.5 + 5 * (1 - a.a.archDiscipline)) * (0.6 + 0.4 / noise);      // metres short of halfway he insists on
+  const maxAge = 0.12 + 0.25 * a.a.archDiscipline;
   const b = ballGuess(e, a);
   const holderTeam = b.holder >= 0 ? e.ath[b.holder].team : -1;
   let best: Seen | null = null, bestS = 0;
-  for (const s of list) {
-    if (s.team === a.team || s.role === 'archer' || s.frozen) continue;
-    if (e.u(a.team, s.x) >= 50) continue; // own half only
+  for (const s of seen(e, a)) {
+    if (s.team === a.team || s.role === 'archer') continue;
+    // a careless Archer sometimes skips the check (decision noise, scaled by difficulty and discipline)
+    const careless = e.rng.chance(0.012 * noise * (1 - a.a.archDiscipline));
+    if (!careless) {
+      if (s.frozen || s.age > maxAge) continue;
+      if (e.u(a.team, s.x + s.vx * 0.15) >= 50 - margin || e.u(a.team, s.x) >= 50 - margin) continue;
+    }
     const dBall = hyp(s.x - b.x, s.y - b.y);
     let sc = 0;
     if (s.idx === b.holder) sc = 3 + (50 - e.u(a.team, s.x)) * 0.04;
-    else if (holderTeam !== a.team && dBall < 14) sc = 1.4 - dBall * 0.05;
-    else if (holderTeam === a.team && dBall < 4) sc = 1.2; // defender pressuring our carrier
-    else if (holderTeam < 0 && dBall < 8) sc = 1.1;
-    if (s.role === 'keeper' && e.inKZ(s.x, s.y, e.oppGoalX(a.team))) sc *= 0.3;
+    else if (holderTeam !== a.team && dBall < 18) sc = 1.4 - dBall * 0.04;
+    else if (holderTeam === a.team && dBall < 6) sc = 1.2;
+    else if (holderTeam < 0 && dBall < 10) sc = 1.1;
+    if (s.role === 'keeper') sc *= 0.3;
+    // quota sense: with few freezes left, save them for the carrier
+    if (t.freezesLeft <= 2 && s.idx !== b.holder) sc *= 0.3;
     if (sc > bestS) { bestS = sc; best = s; }
   }
   if (!best) return;
-  const p = bestS >= 3 ? (e.u(a.team, best.x) < 35 ? 0.4 : 0.15) : 0.04;
+  const p = bestS >= 3 ? (e.u(a.team, best.x) < 38 ? 0.3 : 0.1) : 0.025;
   if (e.rng.chance(p)) { a.plan.fire = best.idx; a.lastFire = e.time; }
 }
 
@@ -300,7 +312,7 @@ export function aiSteer(e: Engine, a: Athlete): Intent {
   // keep tackle intent while closing (reaction-limited retry)
   if (a.role === 'archer') return it;
   const dx = a.tx - a.x, dy = a.ty - a.y, d = hyp(dx, dy);
-  if (d > 0.4) { const s = Math.min(1, d / 2.5); it.mx = dx / d * s; it.my = dy / d * s; }
-  it.sprint = a.aiSprint;
+  if (d > 0.5) { const s = Math.min(1, d / 6); it.mx = dx / d * s; it.my = dy / d * s; }
+  it.sprint = a.aiSprint && a.stamina > 0.18;
   return it;
 }

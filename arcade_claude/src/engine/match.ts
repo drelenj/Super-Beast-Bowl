@@ -7,10 +7,10 @@ import * as C from './constants';
 export const TEAMS: TeamData[] = (rosters as any).teams;
 export const COLORS: Record<string, TeamColors> = (colors as any).teams;
 export const teamByName = (n: string) => TEAMS.find((t) => t.franchise === n)!;
-export const defaultSettings = (seed = 20261115): Settings => ({ seed, scoring: 'flat', periodLen: C.PERIOD_LEN, otLen: C.OT_LEN });
+export const defaultSettings = (seed = 20261115): Settings => ({ seed, scoring: 'flat', periodLen: C.PERIOD_LEN, otLen: C.OT_LEN, difficulty: 'pro' });
 
 /** Run a full match headless with the same engine (breaks auto-skipped). */
-export function runHeadless(home: string, away: string, s: Settings, maxSteps = 60 * 60 * 120) {
+export function runHeadless(home: string, away: string, s: Settings, maxSteps = 60 * 60 * 240) {
   const e = new Engine(teamByName(home), teamByName(away), s);
   let steps = 0;
   while (e.phase !== 'final' && steps < maxSteps) {
