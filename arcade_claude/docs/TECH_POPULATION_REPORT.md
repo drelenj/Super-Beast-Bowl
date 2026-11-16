@@ -12,14 +12,14 @@ Population: 712 players, 26 teams. Technical ratings are integers 60-99. Composi
 | SCT | 55 | 77.9 | 79.1 | 6.01 | 1.19 | catching 81.1, elusiveness 81.4, footwork 81.2 | ballSecurity 75.9, shotAccuracy 75.8, passAccuracy 76.3, awareness 75.2 |
 | SEN | 56 | 78.3 | 79.6 | 6.04 | 1.26 | screening 81.3, tackling 81.3, awareness 81.9 | carryPower 77.3, coverage 76.5, ballSecurity 77.3, discipline 75.7 |
 | TRK | 61 | 78.5 | 79.6 | 5.90 | 1.10 | pursuit 82.1, tackling 82.2, footwork 81.2 | coverage 75.4, awareness 76.5, catching 76.1, discipline 76.6 |
-| HNT | 51 | 78.1 | 78.7 | 6.07 | 0.58 | pursuit 81.0, coverage 80.4, catching 80.3 | tackling 76.2, awareness 75.5, elusiveness 75.1, footwork 76.5 |
+| HNT | 51 | 78.3 | 78.8 | 6.38 | 0.55 | pursuit 81.1, coverage 80.5, catching 80.4 | tackling 76.3, awareness 75.6, elusiveness 75.3, footwork 76.6 |
 | TRP | 77 | 78.3 | 79.1 | 6.20 | 0.86 | coverage 80.6, catching 81.9, awareness 80.6 | pursuit 76.9, tackling 76.6, footwork 75.8, passAccuracy 75.8 |
 | GRD | 77 | 78.9 | 80.0 | 5.89 | 1.08 | tackling 81.4, coverage 81.8, discipline 82.8 | screening 77.3, pursuit 76.9, awareness 77.6, ballSecurity 76.5 |
 | PDR | 67 | 78.1 | 79.0 | 6.53 | 0.88 | passAccuracy 81.3, passVision 80.1, awareness 81.5 | ballSecurity 75.8, clutch 76.2, footwork 76.5, shotAccuracy 75.7 |
 | PFD | 74 | 78.7 | 79.7 | 6.30 | 1.02 | carryPower 81.8, ballSecurity 82.1, shotAccuracy 81.2 | catching 76.5, screening 76.5, elusiveness 76.5, clutch 77.2 |
 | KPR | 57 | 78.4 | 79.5 | 6.29 | 1.14 | keeperReaction 81.5, keeperPositioning 81.4, catching 82.1 | awareness 76.6, footwork 75.9, passAccuracy 76.3, discipline 76.5 |
 | ARC | 66 | 78.2 | 79.2 | 6.03 | 0.99 | archeryAim 81.2, archeryDiscipline 80.8, awareness 81.1 | discipline 76.1, clutch 77.1, footwork 76.3, passVision 76.0 |
-| ALL | 712 | 78.4 | 79.4 | 6.12 | 0.98 | | |
+| ALL | 712 | 78.4 | 79.4 | 6.14 | 0.98 | | |
 
 Column key: tck = tackling, sec = ballSecurity, cat = catching, pAc = passAccuracy, pVi = passVision, sht = shotAccuracy, car = carryPower, elu = elusiveness, pur = pursuit, cov = coverage, scr = screening, aAim = archeryAim, aDis = archeryDiscipline, kRe = keeperReaction, kPo = keeperPositioning, ftw = footwork, dis = discipline, clu = clutch, awr = awareness.
 
@@ -31,7 +31,7 @@ Column key: tck = tackling, sec = ballSecurity, cat = catching, pAc = passAccura
 | SCT | 55 | 77.9 | 70.3 | 75.9 | 81.1 | 76.3 | 70.9 | 75.8 | 70.0 | 81.4 | 69.2 | 71.0 | 70.7 | 71.4 | 71.1 | 70.5 | 71.3 | 81.2 | 76.0 | 76.4 | 75.2 | 79.1 | 6.01 |
 | SEN | 56 | 78.3 | 81.3 | 77.3 | 70.6 | 69.7 | 70.0 | 70.7 | 77.3 | 70.8 | 70.7 | 76.5 | 81.3 | 70.9 | 69.9 | 71.3 | 70.8 | 77.8 | 75.7 | 77.4 | 81.9 | 79.6 | 6.04 |
 | TRK | 61 | 78.5 | 82.2 | 70.6 | 76.1 | 71.2 | 71.2 | 71.1 | 71.2 | 71.1 | 82.1 | 75.4 | 71.4 | 70.1 | 70.3 | 71.1 | 71.3 | 81.2 | 76.6 | 76.9 | 76.5 | 79.6 | 5.90 |
-| HNT | 51 | 78.1 | 76.2 | 71.2 | 80.3 | 70.1 | 71.4 | 71.4 | 70.5 | 75.1 | 81.0 | 80.4 | 71.1 | 71.0 | 70.9 | 70.8 | 70.0 | 76.5 | 77.7 | 77.1 | 75.5 | 78.7 | 6.07 |
+| HNT | 51 | 78.3 | 76.3 | 71.3 | 80.4 | 70.2 | 71.5 | 71.5 | 70.7 | 75.3 | 81.1 | 80.5 | 71.2 | 71.1 | 71.0 | 70.9 | 70.1 | 76.6 | 77.8 | 77.2 | 75.6 | 78.8 | 6.38 |
 | TRP | 77 | 78.3 | 76.6 | 71.0 | 81.9 | 75.8 | 70.5 | 70.8 | 70.9 | 71.2 | 76.9 | 80.6 | 70.9 | 70.6 | 71.0 | 70.9 | 71.3 | 75.8 | 77.4 | 77.3 | 80.6 | 79.1 | 6.20 |
 | GRD | 77 | 78.9 | 81.4 | 76.5 | 71.2 | 71.4 | 70.5 | 70.9 | 70.9 | 71.6 | 76.9 | 81.8 | 77.3 | 71.1 | 71.4 | 71.8 | 71.1 | 77.9 | 82.8 | 77.8 | 77.6 | 80.0 | 5.89 |
 | PDR | 67 | 78.1 | 70.5 | 75.8 | 70.9 | 81.3 | 80.1 | 75.7 | 70.9 | 70.4 | 70.7 | 70.3 | 71.1 | 70.5 | 71.2 | 71.3 | 70.6 | 76.5 | 77.4 | 76.2 | 81.5 | 79.0 | 6.53 |
@@ -46,7 +46,7 @@ Column key: tck = tackling, sec = ballSecurity, cat = catching, pAc = passAccura
 | OVR 60-69 | 44 | 67.7 | 66.7 | 65.5 | 66.8 | 66.1 | 65.2 | 66.8 | 64.9 | 66.2 | 65.0 | 65.6 | 64.7 | 64.9 | 64.8 | 65.1 | 64.9 | 68.1 | 66.3 | 66.6 | 67.6 | 68.6 | 1.71 |
 | OVR 70-79 | 373 | 75.1 | 72.3 | 71.9 | 73.8 | 71.2 | 70.0 | 71.3 | 70.5 | 71.4 | 71.3 | 72.1 | 70.5 | 70.0 | 70.0 | 69.8 | 69.7 | 74.6 | 74.4 | 73.8 | 75.0 | 76.2 | 3.06 |
 | OVR 80-89 | 261 | 83.2 | 78.8 | 78.9 | 80.9 | 77.6 | 75.4 | 77.4 | 75.7 | 77.2 | 77.6 | 78.5 | 76.9 | 74.7 | 75.2 | 75.2 | 74.8 | 81.9 | 82.6 | 81.9 | 83.4 | 84.2 | 3.19 |
-| OVR 90-99 | 34 | 91.8 | 85.3 | 85.4 | 87.6 | 84.7 | 80.1 | 83.4 | 80.3 | 83.3 | 84.8 | 86.4 | 82.8 | 79.4 | 79.5 | 79.6 | 79.6 | 90.4 | 90.9 | 90.1 | 91.4 | 91.9 | 1.91 |
+| OVR 90-99 | 34 | 92.1 | 85.6 | 85.5 | 87.8 | 84.8 | 80.2 | 83.5 | 80.5 | 83.5 | 85.0 | 86.6 | 83.0 | 79.6 | 79.6 | 79.8 | 79.8 | 90.6 | 91.0 | 90.2 | 91.5 | 92.1 | 2.07 |
 
 ## 4. Composite by position and OVR band (mean, n)
 
@@ -56,7 +56,7 @@ Column key: tck = tackling, sec = ballSecurity, cat = catching, pAc = passAccura
 | SCT | 69.5 (3) | 76.0 (31) | 84.0 (19) | 93.3 (2) |
 | SEN | 67.9 (3) | 76.8 (30) | 83.8 (21) | 93.8 (2) |
 | TRK | 69.3 (4) | 76.3 (30) | 83.8 (24) | 91.7 (3) |
-| HNT | 67.8 (3) | 75.7 (27) | 82.9 (18) | 91.6 (3) |
+| HNT | 67.8 (3) | 75.7 (27) | 82.9 (18) | 93.7 (3) |
 | TRP | 67.0 (5) | 76.1 (40) | 83.7 (27) | 91.1 (5) |
 | GRD | 67.9 (3) | 76.7 (41) | 84.3 (29) | 92.2 (4) |
 | PDR | 69.3 (6) | 75.7 (35) | 84.9 (23) | 91.5 (3) |
@@ -68,25 +68,25 @@ Column key: tck = tackling, sec = ballSecurity, cat = catching, pAc = passAccura
 
 | Skill | Mean | SD | Min | Max | At floor 60 | At ceiling 99 |
 |---|---:|---:|---:|---:|---:|---:|
-| tackling | 75.0 | 7.47 | 60 | 96 | 6 | 0 |
-| ballSecurity | 74.7 | 7.20 | 60 | 98 | 8 | 0 |
-| catching | 76.6 | 7.83 | 60 | 98 | 8 | 0 |
-| passAccuracy | 73.9 | 6.99 | 60 | 98 | 7 | 0 |
+| tackling | 75.0 | 7.49 | 60 | 96 | 6 | 0 |
+| ballSecurity | 74.7 | 7.21 | 60 | 98 | 8 | 0 |
+| catching | 76.6 | 7.85 | 60 | 98 | 8 | 0 |
+| passAccuracy | 73.9 | 7.00 | 60 | 98 | 7 | 0 |
 | passVision | 72.2 | 6.23 | 60 | 96 | 8 | 0 |
-| shotAccuracy | 73.8 | 7.07 | 60 | 99 | 5 | 1 |
-| carryPower | 72.5 | 6.58 | 60 | 96 | 14 | 0 |
-| elusiveness | 73.8 | 6.89 | 60 | 98 | 4 | 0 |
-| pursuit | 73.8 | 7.29 | 60 | 98 | 8 | 0 |
-| coverage | 74.7 | 7.49 | 60 | 97 | 5 | 0 |
-| screening | 73.1 | 6.81 | 60 | 96 | 12 | 0 |
-| archeryAim | 71.9 | 5.92 | 60 | 98 | 10 | 0 |
-| archeryDiscipline | 72.0 | 5.96 | 60 | 95 | 9 | 0 |
-| keeperReaction | 71.9 | 5.90 | 60 | 95 | 10 | 0 |
-| keeperPositioning | 71.8 | 5.86 | 60 | 96 | 10 | 0 |
-| footwork | 77.6 | 6.72 | 61 | 99 | 0 | 1 |
-| discipline | 77.7 | 7.35 | 60 | 97 | 4 | 0 |
-| clutch | 77.1 | 7.08 | 60 | 97 | 4 | 0 |
-| awareness | 78.4 | 7.48 | 60 | 99 | 4 | 1 |
+| shotAccuracy | 73.9 | 7.08 | 60 | 99 | 5 | 1 |
+| carryPower | 72.5 | 6.60 | 60 | 96 | 14 | 0 |
+| elusiveness | 73.8 | 6.92 | 60 | 98 | 4 | 0 |
+| pursuit | 73.9 | 7.32 | 60 | 98 | 8 | 0 |
+| coverage | 74.7 | 7.51 | 60 | 99 | 5 | 1 |
+| screening | 73.1 | 6.82 | 60 | 96 | 12 | 0 |
+| archeryAim | 71.9 | 5.93 | 60 | 98 | 10 | 0 |
+| archeryDiscipline | 72.1 | 5.96 | 60 | 95 | 9 | 0 |
+| keeperReaction | 71.9 | 5.91 | 60 | 95 | 10 | 0 |
+| keeperPositioning | 71.8 | 5.88 | 60 | 96 | 10 | 0 |
+| footwork | 77.6 | 6.74 | 61 | 99 | 0 | 2 |
+| discipline | 77.7 | 7.37 | 60 | 99 | 4 | 1 |
+| clutch | 77.1 | 7.10 | 60 | 97 | 4 | 0 |
+| awareness | 78.4 | 7.50 | 60 | 99 | 4 | 1 |
 
 ## 6. Correlations (Pearson, per player)
 
@@ -98,7 +98,7 @@ corr(composite, OVR), all 712 players: **0.970**
 | SCT | 55 | 0.974 |
 | SEN | 56 | 0.946 |
 | TRK | 61 | 0.977 |
-| HNT | 51 | 0.962 |
+| HNT | 51 | 0.966 |
 | TRP | 77 | 0.974 |
 | GRD | 77 | 0.970 |
 | PDR | 67 | 0.976 |
@@ -111,15 +111,15 @@ corr(composite, each physical rating) and, for reference, corr(OVR, the same phy
 | Predictor | corr with composite | corr with OVR |
 |---|---:|---:|
 | OVR | 0.970 | 1.000 |
-| speed | 0.003 | 0.017 |
-| strength | 0.003 | -0.014 |
-| jumping | -0.028 | -0.027 |
-| acceleration | 0.013 | -0.004 |
-| agility | -0.023 | -0.051 |
-| balance | -0.006 | -0.027 |
-| throwPower | 0.009 | 0.030 |
-| stamina | 0.058 | 0.053 |
-| durability | -0.009 | -0.007 |
+| speed | 0.014 | 0.029 |
+| strength | 0.011 | -0.004 |
+| jumping | -0.018 | -0.016 |
+| acceleration | 0.022 | 0.005 |
+| agility | -0.017 | -0.044 |
+| balance | 0.001 | -0.019 |
+| throwPower | 0.017 | 0.039 |
+| stamina | 0.070 | 0.066 |
+| durability | -0.005 | -0.002 |
 
 ## 7. Team strength order
 
@@ -128,7 +128,7 @@ Team strength = mean composite of the 12 'Projected starter' players. Spearman r
 | Rank by OVR | Franchise | Mean starter OVR | Mean starter composite | Rank by composite |
 |---:|---|---:|---:|---:|
 | 1 | Ala Apex | 94.08 | 93.55 | 1 |
-| 2 | Ala Marauders | 89.58 | 90.49 | 2 |
+| 2 | Ala Marauders | 90.25 | 91.02 | 2 |
 | 3 | Ashkara Ignivars | 87.25 | 88.43 | 3 |
 | 4 | Bibi Nupi Barbarians | 85.50 | 86.18 | 4 |
 | 5 | Bryjeer Flame Devils | 84.75 | 85.77 | 5 |

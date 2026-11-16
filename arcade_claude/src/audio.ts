@@ -2,7 +2,7 @@
 // and never throws when AudioContext is unavailable.
 type AC = AudioContext;
 let ac: AC | null = null, master: GainNode | null = null, noiseBuf: AudioBuffer | null = null, amb: GainNode | null = null;
-let lastPlay: Record<string, number> = {};
+const lastPlay: Record<string, number> = {};
 
 function loadMuted(): boolean { try { return localStorage.getItem('sbb_muted') === '1'; } catch { return false; } }
 function noise(c: AC) { if (!noiseBuf) { noiseBuf = c.createBuffer(1, c.sampleRate, c.sampleRate); const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; } const s = c.createBufferSource(); s.buffer = noiseBuf; s.loop = true; return s; }

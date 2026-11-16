@@ -46,6 +46,23 @@ for r in rows[1:]:
         'reachIn': d['Standing reach (in)'], 'reachM': d['Standing reach (m)'],
         'phys': phys, 'primary': d['Primary attributes'], 'secondary': d['Secondary attributes'],
         'shortfall': d['Secondary slot shortfall']})
+# owner-supplied canonical overrides (data/roster_overrides.json), validated like workbook rows
+ov_path = os.path.join(ROOT, 'data', 'roster_overrides.json')
+overrides = json.load(open(ov_path, encoding='utf-8')) if os.path.exists(ov_path) else {}
+applied = []
+for players in teams.values():
+    for p in players:
+        o = overrides.get(p['id'])
+        if not o: continue
+        for k, v in o.items():
+            if k.startswith('_'): continue
+            if k not in p: errors.append('override %s: unknown field %s' % (p['id'], k)); continue
+            p[k] = v
+        for k, v in p['phys'].items():
+            if not isinstance(v, int) or v < 65 or v > 100: errors.append('override %s %s out of range: %r' % (p['id'], k, v))
+        p['overridden'] = o.get('_source', 'owner override'); applied.append(p['name'])
+for k in overrides:
+    if not k.startswith('_') and k not in ids: errors.append('override for unknown id ' + k)
 n = sum(len(v) for v in teams.values())
 if n != 712: errors.append('expected 712 players, got %d' % n)
 if len(ids) != 712: errors.append('expected 712 unique ids, got %d' % len(ids))
@@ -68,4 +85,5 @@ json.dump({'_source': os.path.basename(src) + ' (sheet "All 712 Players")',
            'version': 'roster-morph-1.0/phys-1.0', 'teams': out},
           open(os.path.join(ROOT, 'data', 'rosters.json'), 'w', encoding='utf-8'), ensure_ascii=False)
 hs = [p['heightIn'] for t in out for p in t['players']]; ms = [p['massKg'] for t in out for p in t['players']]
+print('overrides applied:', applied)
 print('roster OK: 26 franchises, 712 unique ids, ratings 65-100 integers, heights %.1f-%.1f in, mass %.0f-%.0f kg' % (min(hs), max(hs), min(ms), max(ms)))

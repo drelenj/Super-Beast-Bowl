@@ -1,0 +1,13 @@
+{
+  "_note": "Owner-supplied canonical profiles that supersede the workbook row. Applied by scripts/build_roster.py after reading the workbook. Fields not listed keep the workbook value.",
+  "NBL24-02-04": {
+    "_source": "Kamasi Sinella — Final canonical profile + Locked physical ratings (owner, 16 Nov 2026)",
+    "ovr": 98, "ovrChange": 0,
+    "ancestry": "Ly’Kun/Shynän/Dryqona", "ancestryClass": "Tri", "physique": "Rangy",
+    "heightIn": 116.1, "heightM": 2.949,
+    "massLb": 1018, "massKg": 461.8,
+    "armSpanIn": 127.7, "armSpanM": 3.244,
+    "reachIn": 150.9, "reachM": 3.833,
+    "phys": { "speed": 94, "strength": 96, "jumping": 93, "acceleration": 91, "agility": 94, "balance": 93, "throwPower": 95, "stamina": 97, "durability": 96 }
+  }
+}

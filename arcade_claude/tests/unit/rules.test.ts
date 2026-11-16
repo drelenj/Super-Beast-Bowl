@@ -527,7 +527,7 @@ describe('archer', () => {
   it('archer: freeze lasts 5 s, then recovery 3 m back over 2 s, then 10 s immunity', () => {
     expect(C.FREEZE_TIME).toBe(5); expect(C.RECOVERY_DIST).toBe(3); expect(C.RECOVERY_TIME).toBe(2); expect(C.IMMUNE_TIME).toBe(10);
     const e = mk(100); const a = fieldOf(e, 0)[0];
-    place(a, 10, 0); idleDead(e);
+    place(a, 10, 0); idleDead(e); for (const o of e.ath) if (o !== a) o.onField = false;   // alone on the field: body collisions would otherwise nudge him
     a.frozenT = C.FREEZE_TIME;
     for (let i = 0; i < 297; i++) e.step();                            // 4.95 s
     expect(a.frozenT).toBeGreaterThan(0); expect(a.recoverT).toBe(0); expect(a.x).toBeCloseTo(10, 6);

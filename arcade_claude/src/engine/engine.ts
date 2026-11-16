@@ -637,7 +637,7 @@ export class Engine {
       a.recoverT -= dt;                                   // recovery: 3 m back over 2 s
       const v = C.RECOVERY_DIST / C.RECOVERY_TIME;
       a.vx = -this.teams[a.team].dir * v; a.vy = 0;
-      if (a.recoverT <= 0) { a.recoverT = 0; a.immuneT = C.IMMUNE_TIME; }
+      if (a.recoverT <= 0) { a.recoverT = 0; a.immuneT = C.IMMUNE_TIME; a.vx = 0; a.vy = 0; }
     } else if (a.immuneT > 0) a.immuneT = Math.max(0, a.immuneT - dt);
     if (a.groundedT > 0) a.groundedT = Math.max(0, a.groundedT - dt);
     if (a.stumbleT > 0) a.stumbleT = Math.max(0, a.stumbleT - dt);
