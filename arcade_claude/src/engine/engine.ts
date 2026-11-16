@@ -487,7 +487,7 @@ export class Engine {
     const pC = c.body.mass * hyp(c.vx, c.vy) * 0.35 + c.body.mass * 4 * (0.5 + 0.6 * c.a.balance + 0.4 * c.a.strength);
     const mom = (pT - pC) / (pT + pC);                       // -1..1
     const carry = (c.tech.carryPower - 60) / 39, elus = (c.tech.elusiveness - 60) / 39;
-    const p = clamp(0.5 + (a.a.tackle - 0.5 * carry - 0.5 * elus) * 0.45 + mom * 0.4, 0.12, 0.93);
+    const p = clamp(0.36 + (a.a.tackle - 0.5 * carry - 0.5 * elus) * 0.45 + mom * 0.4, 0.08, 0.9);
     if (this.rng.chance(p)) {
       a.stats.tackles++;
       c.groundedT = 1.4; c.act = 'tackled'; c.actT = 1.4; c.vx *= 0.2; c.vy *= 0.2; c.stats.knockdowns++;
@@ -514,7 +514,7 @@ export class Engine {
       }
     } else {
       // missed: the tackler may go down himself (Balance), the carrier is slowed
-      if (this.rng.chance(0.75 - 0.5 * a.a.balance)) a.stumbleT = 0.9;
+      if (this.rng.chance(0.85 - 0.4 * a.a.balance)) a.stumbleT = 1.1;
       a.vx *= 0.4; a.vy *= 0.4; c.vx *= 0.85; c.vy *= 0.85;
     }
   }
@@ -857,7 +857,7 @@ export class Engine {
       // stopping a shot: Keepers use reaction and positioning; field players can only block
       p = a.role === 'keeper' ? 0.3 + 0.5 * ((a.tech.keeperReaction - 60) / 39) - Math.max(0, sp - 45) * 0.006 - bestD * 0.18 : (0.2 + a.a.catchS * 0.25) * (1 - bestD * 0.5);
     } else {
-      p = (0.12 + a.a.catchS * 0.35 - fast - bestD * 0.2) * 0.7;       // interceptions are harder than catching your own side's pass
+      p = (0.12 + a.a.catchS * 0.35 - fast - bestD * 0.2) * 0.5;       // interceptions are harder than catching your own side's pass
     }
     if (this.rng.chance(clamp(p, 0.04, 0.97))) {
       const wasShot = b.isShot && b.shotTeam !== a.team;
@@ -937,7 +937,7 @@ export class Engine {
   outOfPlay(x: number, y: number) {
     const b = this.ball;
     const toTeam = b.lastTouchTeam >= 0 ? 1 - b.lastTouchTeam : (this.poss >= 0 ? 1 - this.poss : 0);
-    let cx = clamp(x, -C.FIELD_HALF, C.FIELD_HALF), cy = clamp(y, -C.FIELD_HALF, C.FIELD_HALF);
+    const cx = clamp(x, -C.FIELD_HALF, C.FIELD_HALF); let cy = clamp(y, -C.FIELD_HALF, C.FIELD_HALF);
     // on a goal line the crossing point slides to the edge of the Keeper Zone
     if (Math.abs(cx) >= C.FIELD_HALF - 1e-6 && Math.abs(cy) < C.KEEPER_ZONE_R) cy = (cy >= 0 ? 1 : -1) * C.KEEPER_ZONE_R;
     // the thrower stands with his feet outside the line

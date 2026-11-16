@@ -6,9 +6,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Beastball" />
+<meta name="apple-mobile-web-app-title" content="Super Beast Bowl" />
 <meta name="theme-color" content="#0b0e16" />
-<title>BEASTBALL: ARCADE</title>
+<title>SUPER BEAST BOWL</title>
 <style>
   :root { --bg:#0b0e16; --panel:#151a28ee; --acc:#ffcf3d; --txt:#eef1f7; }
   * { box-sizing: border-box; }
@@ -36,7 +36,8 @@
   .tname { font-weight:800; font-size:18px; text-align:center; }
   label { margin:0 8px; }
   select, input { background:#121827; color:var(--txt); border:1px solid #3b4870; border-radius:6px; padding:6px; font-size:14px; }
-  #hud { position:fixed; top:8px; left:50%; transform:translateX(-50%); display:none; z-index:5; pointer-events:none; }
+  #hud { position:fixed; top:8px; left:0; right:0; margin:0 auto; width:max-content; max-width:calc(100vw - 2 * var(--hudside, 112px)); display:none; z-index:5; pointer-events:none; }
+  body.hvh { --hudside:250px; }
   #hud.on { display:block; }
   .board { display:flex; align-items:stretch; background:#0c1020e8; border:2px solid #39446a; border-radius:10px; overflow:hidden; font-weight:800; }
   .board .side { display:flex; align-items:center; gap:8px; padding:4px 12px; min-width:200px; }
@@ -90,7 +91,7 @@
     .board .mid { min-width:110px; padding:2px 8px; }
     .board .clock { font-size:20px; } .ammo { font-size:9px; } .small { font-size:10px; }
     #flash { font-size:34px; }
-    #spec { top:70px; right:6px; } #spec button { padding:5px 7px; font-size:12px; }
+    #spec { right:6px; } #spec button { padding:5px 7px; font-size:12px; }
     h1 { font-size:38px; }
   }
   @media (max-height: 520px) {
@@ -100,15 +101,149 @@
     h2 { margin:2px 0 6px; } .sub { margin-bottom:8px; }
   }
   .note { max-width:820px; font-size:12px; opacity:.7; text-align:center; margin-top:10px; }
+
+  /* ================= Super Beast Bowl 2 UI ================= */
+  #scrMenu { background:linear-gradient(180deg, #07090f55 0%, #07090f22 35%, #07090fbb 100%); }
+  #scrMenu h1 { font-size:68px; letter-spacing:6px; text-align:center; line-height:1; background:linear-gradient(180deg,#fff3a8,#ffcf3d 45%,#ff7a1a); -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow:none; filter:drop-shadow(0 4px 0 #5a2c00) drop-shadow(0 0 22px #ff9a1a66); font-style:italic; }
+  #scrMenu .sub { letter-spacing:3px; font-weight:800; text-shadow:0 2px 6px #000; text-align:center; }
+  .menu { display:flex; flex-direction:column; align-items:stretch; min-width:280px; background:#0b0e16b8; border:2px solid #39446a; border-radius:14px; padding:10px; backdrop-filter:blur(3px); }
+  .menu button { min-height:44px; }
+  .menu .row2 { display:flex; } .menu .row2 button { flex:1; }
+  button { min-height:40px; }
+  button:disabled { opacity:.4; cursor:default; border-color:#3b4870; }
+  button.icon { min-width:44px; padding:6px 10px; display:inline-flex; align-items:center; justify-content:center; gap:6px; }
+  button.icon svg { width:22px; height:22px; display:block; }
+  select, input { min-height:36px; }
+  .screen.glass { background:radial-gradient(ellipse at center, #1a2236ee, #07090ff2); }
+  .board { box-shadow:0 6px 18px #000a; border-radius:6px 6px 14px 14px; border-color:#ffffff33; }
+  .board .side { position:relative; background:linear-gradient(180deg,#141b33,#0a0e1c); }
+  .board .side .cb { align-self:stretch; display:flex; align-items:center; padding:0 6px; margin:-4px 0 -4px -12px; }
+  #hs1 .cb { margin:-4px -12px -4px 0; }
+  .board .side .tn { min-width:74px; }
+  .board .score { background:#05070dcc; border-radius:6px; padding:0 6px; font-family:Consolas, monospace; }
+  .board .mid { flex-direction:row; gap:10px; background:linear-gradient(180deg,#232c52,#141a33); }
+  .board .mid .mc { display:flex; flex-direction:column; align-items:center; }
+  .ring { position:relative; width:46px; height:46px; flex:none; }
+  .ring svg { width:46px; height:46px; transform:rotate(-90deg); }
+  .ring circle { fill:none; stroke-width:4; }
+  .ring .bg { stroke:#ffffff22; }
+  .ring .fg { stroke:#5dff9a; stroke-linecap:round; transition:stroke .2s; }
+  .ring.red .fg { stroke:#ff4d4d; } .ring.red #pcNum { color:#ff6b6b; }
+  .ring.snap .fg { stroke:#ffcf3d; }
+  .ring #pcNum { position:absolute; left:0; right:0; top:9px; text-align:center; font-size:16px; font-family:Consolas, monospace; line-height:1; }
+  .ring #pcLab { position:absolute; left:0; right:0; top:26px; text-align:center; font-size:7px; letter-spacing:.5px; opacity:.85; }
+  .pips { display:flex; flex-direction:column; gap:3px; align-items:center; font-size:7px; letter-spacing:.5px; }
+  .pips i { width:10px; height:10px; border-radius:50%; border:2px solid #ffffff99; display:block; }
+  .pips i.on { background:#ff8a3d; border-color:#ffb27a; }
+  .hrow { display:flex; justify-content:space-between; align-items:flex-start; gap:6px; margin-top:4px; min-height:22px; }
+  .chip { font-size:11px; font-weight:800; background:#0c1020e0; border:1px solid #ffffff2a; border-radius:11px; padding:3px 9px; white-space:nowrap; visibility:hidden; }
+  .chip { min-width:0; overflow:hidden; text-overflow:ellipsis; flex:0 1 auto; }
+  .chip.on { visibility:visible; }
+  .board .side { flex:1 1 auto; }
+  .chip.ok b { color:#5dff9a; } .chip.no b { color:#ff8a8a; }
+  #callout { border-width:2px; flex-shrink:20; }
+  #whistle { display:none; margin:5px auto 0; max-width:560px; background:#0c1020f2; border:2px solid #ffffff55; border-left-width:10px; border-radius:8px; padding:5px 12px; text-align:left; box-shadow:0 4px 14px #000a; }
+  #whistle.on { display:block; }
+  #whTitle { font-weight:900; letter-spacing:1px; font-size:15px; }
+  #whTitle::before { content:'WHISTLE'; font-size:9px; letter-spacing:1px; background:#fff; color:#111; border-radius:3px; padding:1px 4px; margin-right:8px; vertical-align:middle; }
+  #whDetail { font-size:12px; opacity:.92; font-weight:600; }
+  #hudBtns { position:fixed; right:max(8px, env(safe-area-inset-right)); top:max(8px, env(safe-area-inset-top)); z-index:9; display:none; gap:4px; }
+  body.playing #hudBtns { display:flex; }
+  #hudBtns button { margin:0; min-width:44px; min-height:44px; padding:4px 8px; font-size:12px; background:#10182ccc; border-color:#ffffff66; }
+  #hPause { display:none; } body:not(.touch) #hPause { display:inline-flex; }
+  #spec { top:auto; bottom:46px; right:10px; }
+  body.touch #spec { bottom:max(8px, env(safe-area-inset-bottom)); }
+  body.spectate #touch .tb, body.spectate #tzone, body.spectate #stick { display:none; }
+  #hplay, .ammo { white-space:nowrap; }
+  #tFire.dim { opacity:.35; border-style:dashed; }
+  /* intro card */
+  #scrIntro { background:#05070de8; cursor:pointer; }
+  #introBody { display:flex; flex-direction:column; align-items:center; text-align:center; max-width:100%; }
+  .itop { font-size:30px; font-weight:900; font-style:italic; letter-spacing:5px; color:var(--acc); text-shadow:0 3px 0 #6b3d00; margin-bottom:8px; }
+  .irow { display:flex; align-items:center; gap:14px; }
+  .iside { width:300px; max-width:38vw; border:2px solid; border-radius:14px; padding:12px; text-align:center; animation:slidein .45s ease-out both; }
+  .irow .iside:last-child { animation-name:slidein2; }
+  @keyframes slidein { from { transform:translateX(-60px); opacity:0; } to { transform:none; opacity:1; } }
+  @keyframes slidein2 { from { transform:translateX(60px); opacity:0; } to { transform:none; opacity:1; } }
+  .iside img { width:110px; height:110px; }
+  .iname { font-size:20px; font-weight:900; text-shadow:0 2px 4px #000; }
+  .iovr { margin:6px 0; font-size:13px; } .iovr b { font-size:26px; color:var(--acc); margin-right:4px; }
+  .iwatch { text-align:left; font-size:13px; font-weight:700; background:#0008; border-radius:8px; padding:6px 8px; }
+  .iwatch span { float:right; opacity:.85; font-weight:600; }
+  .imeta { margin-top:10px; } .ihint { margin-top:4px; opacity:.7; animation:blink 1.2s infinite; }
+  @keyframes blink { 50% { opacity:.25; } }
+  /* stat cards */
+  .cards { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; align-items:flex-start; max-width:1100px; }
+  .card { background:#0c1020d8; border:1px solid #39446a; border-radius:10px; padding:6px 8px; }
+  .card h3 { margin:2px 0 2px; font-size:12px; letter-spacing:1.5px; color:var(--acc); text-align:center; }
+  .card table.stats { margin:2px 0; font-size:13px; }
+  .card table.stats td, .card table.stats th { padding:3px 10px; }
+  .tblwrap { max-width:100%; overflow-x:auto; }
+  tr.prow { cursor:pointer; } tr.prow:hover td, tr.prow:focus td { background:#ffffff14; }
+  tr.sep td { text-align:left; font-size:11px; letter-spacing:1px; color:var(--acc); background:#ffffff0a; }
+  .rohead { display:flex; align-items:center; gap:12px; border-bottom:3px solid; padding:4px 4px 8px; margin-bottom:6px; text-align:left; }
+  .rohead img { width:64px; height:64px; flex:none; }
+  .rohead .tname { text-align:left; font-size:20px; }
+  .rohead .ovr { margin-left:auto; font-size:30px; font-weight:900; border-radius:10px; padding:4px 12px; text-align:center; line-height:1; }
+  .rohead .ovr span { display:block; font-size:10px; letter-spacing:1px; }
+  table.roster td, table.roster th { padding:7px 10px; white-space:nowrap; }
+  #roBody, #plBody { width:min(100%, 900px); }
+  .pcard { border:2px solid; border-radius:12px; background:#0c1020e6; padding:10px; }
+  .pcols { display:flex; gap:18px; flex-wrap:wrap; }
+  .pcol { flex:1 1 300px; min-width:260px; }
+  .pcol h3 { font-size:12px; letter-spacing:1px; margin:8px 0 4px; }
+  h3.canon { color:#ffcf3d; } h3.arcade { color:#4dd2ff; }
+  table.morph td { padding:2px 10px 2px 0; font-size:13px; } table.morph td:first-child { opacity:.75; }
+  .bar { display:flex; align-items:center; gap:8px; font-size:12px; margin:3px 0; }
+  .bar .bl { width:128px; flex:none; } .bar .bt { flex:1; height:9px; background:#ffffff18; border-radius:5px; overflow:hidden; } .bar .bt i { display:block; height:100%; border-radius:5px; }
+  .bar .bv { width:26px; text-align:right; font-weight:800; font-family:Consolas, monospace; }
+  /* tutorial */
+  #scrTut { background:#05070de6; z-index:12; }
+  .tut { width:min(100%, 560px); background:#151a28; border:2px solid var(--acc); border-radius:14px; padding:16px 18px; text-align:center; }
+  .tut .step { font-size:11px; letter-spacing:2px; opacity:.7; }
+  .tut h3 { margin:6px 0 8px; color:var(--acc); letter-spacing:1.5px; font-size:20px; }
+  .tut p { margin:0 0 12px; line-height:1.5; font-size:15px; text-align:left; }
+  .dots { display:flex; gap:6px; justify-content:center; margin-bottom:8px; } .dots i { width:8px; height:8px; border-radius:50%; background:#ffffff33; } .dots i.on { background:var(--acc); }
+  .optnote { font-size:11px; opacity:.75; max-width:820px; text-align:center; margin:2px 0 4px; }
+  @media (max-width: 950px), (max-height: 520px) {
+    #scrMenu h1 { font-size:40px; letter-spacing:3px; }
+    .board .side .tn { min-width:0; } .board .mid { gap:6px; }
+    .ring, .ring svg { width:38px; height:38px; } .ring #pcNum { top:7px; font-size:14px; } .ring #pcLab { top:22px; font-size:6px; }
+    #whTitle { font-size:13px; } #whDetail { font-size:11px; } #whistle { padding:3px 10px; max-width:440px; }
+    .chip { font-size:10px; padding:2px 7px; }
+    .iside { padding:8px; } .iside img { width:64px; height:64px; } .iname { font-size:15px; } .iovr b { font-size:18px; } .iwatch { font-size:11px; padding:4px 6px; } .itop { font-size:20px; margin-bottom:4px; }
+    .card table.stats { font-size:12px; } .card table.stats td, .card table.stats th { padding:2px 8px; }
+    .bar .bl { width:110px; }
+  }
+  @media (max-height: 520px) {
+    .menu { flex-direction:row; flex-wrap:wrap; justify-content:center; max-width:640px; padding:6px; }
+    .menu button { flex:1 1 40%; margin:3px; } .menu .row2 { flex:1 1 100%; }
+    .tut { padding:10px 14px; } .tut p { font-size:13px; margin-bottom:8px; } .tut h3 { font-size:16px; margin:2px 0 6px; }
+    #scrMenu .sub { margin-bottom:6px; } .note { margin-top:6px; font-size:11px; }
+  }
+  button.mute .soff { display:none; } button.mute.off .son { display:none; } button.mute.off .soff { display:inline; } button.mute.off { color:#ff8a8a; }
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div id="hud"><div class="board">
-  <div class="side" id="hs0"><img id="hl0" alt="" /><div><div id="hn0">HOME</div><div class="ammo" id="ha0"></div></div><span class="poss" id="hp0"></span><div class="score" id="hsc0">0</div></div>
-  <div class="mid"><div class="small" id="hper">P1</div><div class="clock" id="hclk">10:00</div><div class="small" id="hplay">PLAY 30 · TACKLE 0</div></div>
-  <div class="side" id="hs1"><div class="score" id="hsc1">0</div><span class="poss" id="hp1"></span><div><div id="hn1">AWAY</div><div class="ammo" id="ha1"></div></div><img id="hl1" alt="" /></div>
-</div></div>
+<div id="hud">
+  <div class="board">
+    <div class="side" id="hs0"><div class="cb" id="hcb0"><img id="hl0" alt="" /></div><div class="tn"><div id="hn0">HOME</div><div class="ammo" id="ha0"></div></div><span class="poss" id="hp0"></span><div class="score" id="hsc0">0</div></div>
+    <div class="mid">
+      <div class="mc"><div class="small" id="hper">P1</div><div class="clock" id="hclk">10:00</div><div class="small" id="hplay"></div></div>
+      <div class="ring" id="pcRing" title="Play clock"><svg viewBox="0 0 46 46"><circle class="bg" cx="23" cy="23" r="19"/><circle class="fg" id="pcArc" cx="23" cy="23" r="19" stroke-dasharray="119.4" stroke-dashoffset="0"/></svg><div id="pcNum">30</div><div id="pcLab">PLAY</div></div>
+      <div class="pips" title="Tackles this possession (two = turnover)"><i id="tk0"></i><i id="tk1"></i><span>TKL</span></div>
+    </div>
+    <div class="side" id="hs1"><div class="score" id="hsc1">0</div><span class="poss" id="hp1"></span><div class="tn" style="text-align:right"><div id="hn1">AWAY</div><div class="ammo" id="ha1"></div></div><div class="cb" id="hcb1"><img id="hl1" alt="" /></div></div>
+  </div>
+  <div class="hrow"><div class="chip" id="arch0"></div><div class="chip" id="callout"></div><div class="chip" id="arch1"></div></div>
+  <div id="whistle"><div id="whTitle"></div><div id="whDetail"></div></div>
+</div>
+<div id="hudBtns">
+  <button id="hTO0" title="Call timeout (T)">T.O.</button><button id="hTO1" title="Call timeout (away)">T.O.</button>
+  <button id="hMute" class="icon mute" aria-label="Mute sound" title="Mute (M)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h4l5-4v14l-5-4H3z" fill="currentColor"/><path class="son" d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="soff" d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <button id="hPause" class="icon" aria-label="Pause" title="Pause (Esc)">II</button>
+</div>
 <div id="flash"></div>
 <div id="rotate">Rotate your phone to landscape for the best view</div>
 <div id="touch">
@@ -130,33 +265,36 @@
 </div>
 
 <div class="screen on" id="scrMenu">
-  <h1>BEASTBALL</h1><div class="sub">ARCADE · NBL 2026-27 OPENING NIGHT</div>
-  <div class="row" style="flex-direction:column">
+  <h1>SUPER BEAST BOWL</h1><div class="sub">BEASTBALL ARCADE · 12 A SIDE · FULL CONTACT</div>
+  <div class="menu">
     <button class="primary" id="mPlay">Play: Human vs AI</button>
     <button id="mWatch">Watch: AI vs AI</button>
     <button id="mHvH">Local: Human vs Human</button>
-    <button id="mControls">Controls</button>
+    <button id="mRosters">Rosters and ratings</button>
+    <div class="row2"><button id="mHow">How to play</button><button id="mControls">Controls</button><button id="mMute" class="icon mute" aria-label="Mute sound" title="Mute"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h4l5-4v14l-5-4H3z" fill="currentColor"/><path class="son" d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="soff" d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
   </div>
-  <div class="note">Separate TypeScript arcade implementation of the canon (Rulebook 1.0). Arcade results are not simulator evidence. Attributes derived from OVR are ARCADE PLACEHOLDERS.</div>
+  <div class="note">Separate TypeScript arcade implementation of the canon (Rulebook 1.0). Arcade results are not simulator evidence. Physical ratings are the locked canon values; technical ratings are ARCADE-DERIVED, NOT CANON. Team crests are original colour glyphs.</div>
 </div>
 
-<div class="screen" id="scrSelect">
+<div class="screen glass" id="scrSelect">
   <h2 id="selTitle">SELECT TEAMS</h2>
   <div class="matchup"><div><img id="selL0" alt="" /><div class="tname" id="selN0"></div><div class="small" style="text-align:center;color:#ffe14d">HOME (tap with HOME selected)</div></div><div class="vs">VS</div><div><img id="selL1" alt="" /><div class="tname" id="selN1"></div><div class="small" style="text-align:center;color:#4dd2ff">AWAY (tap with AWAY selected)</div></div></div>
-  <div class="row pick"><span class="small">Tap a team to set:</span><button class="h on" id="pickH">HOME</button><button class="a" id="pickA">AWAY</button></div>
+  <div class="row pick"><span class="small">Tap a team to set:</span><button class="h on" id="pickH">HOME</button><button class="a" id="pickA">AWAY</button><button id="selRosters">Rosters</button></div>
   <div class="grid" id="teamGrid"></div>
   <div class="row">
     <label>Mode <select id="optMode"><option value="hva">Human vs AI</option><option value="ava">AI vs AI (spectator)</option><option value="hvh">Human vs Human</option></select></label>
+    <label>Difficulty <select id="optDiff"><option value="rookie">Rookie</option><option value="pro" selected>Pro</option><option value="legend">Legend</option></select></label>
     <label>Scoring <select id="optScoring"><option value="flat">Flat (default): goal 2, half goal 1</option><option value="banded">Provisional banded scale</option></select></label>
     <label>Clock <select id="optClock"><option value="600">Canon 4 x 600 s</option><option value="120">Accelerated 4 x 120 s</option><option value="60">Accelerated 4 x 60 s</option></select></label>
     <label>Seed <input id="optSeed" type="number" value="20261115" style="width:110px" /></label>
   </div>
+  <div class="optnote">Difficulty changes AI reaction time and decision noise only. It never changes any rating.</div>
   <div class="row"><button class="primary" id="selStart">Start match</button><button id="selBack">Back</button></div>
 </div>
 
-<div class="screen" id="scrControls">
+<div class="screen glass" id="scrControls">
   <h2>CONTROLS</h2>
-  <table class="ctrl">
+  <div class="tblwrap"><table class="ctrl">
     <tr><td><b>Action</b></td><td><b>Player 1</b></td><td><b>Player 2 (HvH)</b></td><td><b>Gamepad</b></td></tr>
     <tr><td>Move</td><td><span class="kbd">W A S D</span> / arrows (1P)</td><td><span class="kbd">Arrows</span></td><td>Left stick / D-pad</td></tr>
     <tr><td>Sprint</td><td><span class="kbd">Shift</span></td><td><span class="kbd">Right Ctrl</span></td><td>RB / RT</td></tr>
@@ -165,34 +303,68 @@
     <tr><td>Switch athlete</td><td><span class="kbd">K</span></td><td><span class="kbd">,</span></td><td>Y</td></tr>
     <tr><td>Shoot at goal</td><td><span class="kbd">L</span></td><td><span class="kbd">/</span></td><td>X</td></tr>
     <tr><td>Archer aim &amp; fire (auto-aim)</td><td><span class="kbd">E</span></td><td><span class="kbd">'</span></td><td>LB</td></tr>
-    <tr><td>Pause</td><td><span class="kbd">Esc</span></td><td><span class="kbd">Esc</span></td><td>Start</td></tr>
-    <tr><td>Touch (phone / tablet)</td><td colspan="3">Left thumb: floating stick (push to the outer ring to sprint) · right thumb: PASS / SHOOT / TACKLE / SWITCH / ARCHER / SPRINT · II to pause</td></tr>
+    <tr><td>Call timeout</td><td><span class="kbd">T</span></td><td><span class="kbd">\</span></td><td>Back / Select</td></tr>
+    <tr><td>Pause / mute</td><td><span class="kbd">Esc</span> <span class="kbd">M</span></td><td><span class="kbd">Esc</span></td><td>Start</td></tr>
+    <tr><td>Touch (phone / tablet)</td><td colspan="3">Left thumb: floating stick (push to the outer ring to sprint) · right thumb: PASS / SHOOT / TACKLE / SWITCH / ARCHER / SPRINT · II to pause · T.O. for a timeout</td></tr>
     <tr><td>Spectator: speed / camera</td><td><span class="kbd">1 2 3 4</span> <span class="kbd">C</span> <span class="kbd">N</span></td><td></td><td></td></tr>
-  </table>
-  <div class="note">On defence a useful defender is auto-selected (nearest to the carrier); K switches to the teammate nearest the ball. Pass goes to the open teammate closest to the direction you are pushing.</div>
+  </table></div>
+  <div class="note">On defence a useful defender is auto-selected (nearest to the carrier); K switches to the teammate nearest the ball. Pass goes to the open teammate closest to the direction you are pushing, and you take over the receiver. The Archer may only shoot opponents inside the Archer's own half; 15 arrows and 5 freezes per match quota shown on the HUD.</div>
   <button class="primary" id="ctrlBack">Back</button>
 </div>
 
-<div class="screen" id="scrPause">
+<div class="screen glass" id="scrPause">
   <h2>PAUSED</h2>
-  <div class="row" style="flex-direction:column"><button class="primary" id="pResume">Resume</button><button id="pRestart">Restart match (same seed)</button><button id="pControls">Controls</button><button id="pMenu">Quit to menu</button></div>
+  <div class="menu">
+    <button class="primary" id="pResume">Resume</button>
+    <button id="pRestart">Restart match (same seed)</button>
+    <div class="row2"><button id="pTO0">Timeout</button><button id="pTO1">Timeout (away)</button></div>
+    <div class="row2"><button id="pHow">How to play</button><button id="pControls">Controls</button><button id="pMute" class="icon mute" aria-label="Mute sound" title="Mute"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h4l5-4v14l-5-4H3z" fill="currentColor"/><path class="son" d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="soff" d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+    <button id="pMenu">Quit to menu</button>
+  </div>
 </div>
 
-<div class="screen" id="scrBreak">
+<div class="screen" id="scrIntro"><div id="introBody"></div></div>
+
+<div class="screen glass" id="scrBreak">
   <h2 id="brTitle">HALFTIME</h2>
   <div class="matchup"><div><img id="brL0" alt="" /></div><div class="vs" id="brScore">0 - 0</div><div><img id="brL1" alt="" /></div></div>
   <div class="small" id="brInfo"></div>
-  <table class="stats" id="brStats"></table>
   <button class="primary" id="brSkip">Continue (ends exchanged)</button>
+  <div class="cards">
+    <div class="card"><h3>TEAM STATS</h3><table class="stats" id="brStats"></table></div>
+    <div class="card"><h3>MATCH STATS: AWARDS AND DISCIPLINE</h3><table class="stats" id="brMatch"></table></div>
+    <div class="card"><h3>TOP PERFORMERS</h3><div class="tblwrap"><table class="stats" id="brTop"></table></div></div>
+  </div>
 </div>
 
-<div class="screen" id="scrFinal">
+<div class="screen glass" id="scrFinal">
   <h2>FINAL</h2>
   <div class="matchup"><div><img id="fiL0" alt="" /><div class="tname" id="fiN0"></div></div><div class="vs" id="fiScore">0 - 0</div><div><img id="fiL1" alt="" /><div class="tname" id="fiN1"></div></div></div>
   <div class="small" id="fiInfo"></div>
-  <table class="stats" id="fiStats"></table>
-  <table class="stats" id="fiTop"></table>
   <div class="row"><button class="primary" id="fiRematch">Rematch (same teams &amp; seed)</button><button id="fiMenu">Main menu</button></div>
+  <div class="cards">
+    <div class="card"><h3>TEAM STATS</h3><table class="stats" id="fiStats"></table></div>
+    <div class="card"><h3>MATCH STATS: AWARDS AND DISCIPLINE</h3><table class="stats" id="fiMatch"></table></div>
+    <div class="card"><h3>TOP PERFORMERS (tap a row for player details)</h3><div class="tblwrap"><table class="stats" id="fiTop"></table></div></div>
+  </div>
+  <div class="note">Arcade result from a separate TypeScript implementation. Not simulator evidence.</div>
+</div>
+
+<div class="screen glass" id="scrRoster">
+  <h2>ROSTERS</h2>
+  <div class="row"><button id="roPrev" class="icon" aria-label="Previous team">&lt;</button><select id="roTeam" aria-label="Team"></select><button id="roNext" class="icon" aria-label="Next team">&gt;</button><button id="roExport">Export tech ratings JSON</button><button class="primary" id="roBack">Back</button></div>
+  <div class="optnote">Tap a player for details. Physical ratings are LOCKED canon values. Technical ratings are ARCADE-DERIVED, NOT CANON.</div>
+  <div id="roBody"></div>
+</div>
+
+<div class="screen glass" id="scrPlayer">
+  <div class="row"><h2 style="margin:0 12px 0 0">PLAYER DETAILS</h2><button class="primary" id="plBack">Back</button></div>
+  <div id="plBody" style="margin-top:8px"></div>
+</div>
+
+<div class="screen" id="scrTut">
+  <div class="tut"><div class="step" id="tutStep">HOW TO PLAY 1 / 5</div><h3 id="tutTitle"></h3><p id="tutText"></p><div class="dots" id="tutDots"></div>
+  <div class="row"><button id="tutSkip">Skip</button><button id="tutPrev">Back</button><button class="primary" id="tutNext">Next</button></div></div>
 </div>
 <script type="module" src="/src/main.ts"></script>
 </body>

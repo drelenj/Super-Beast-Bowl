@@ -1,0 +1,809 @@
+{
+ "agg": {
+  "matches": 6,
+  "completed": 6,
+  "overtime": 0,
+  "pointsPerMatch": 42.3,
+  "pointsFromPlayPct": 94.5,
+  "pointsFromAwardsPct": 5.5,
+  "arrowsLegal": 2639,
+  "arrowsIllegal": 17,
+  "illegalArrowPct": 0.64,
+  "perMatch": {
+   "goals": 19.2,
+   "shots": 105.8,
+   "passCompPct": 84.8,
+   "tackles": 420,
+   "saves": 67.8,
+   "interceptions": 168,
+   "freezes": 129.7,
+   "minors": 4.8,
+   "majors": 0,
+   "dqs": 0,
+   "turnovers": 142,
+   "timeouts": 4.8,
+   "subs": 2,
+   "injuries": 1.67,
+   "reviews": 0.67,
+   "tossIns": 121,
+   "carryGoals": 1,
+   "ownGoals": 0.83
+  }
+ },
+ "rows": [
+  {
+   "home": "Ala Apex",
+   "away": "Isu’Kari Sirenwings",
+   "seed": 1000,
+   "scoring": "flat",
+   "phase": "final",
+   "period": 4,
+   "ticks": 233080,
+   "gameSeconds": 3884.7,
+   "score": [
+    26,
+    12
+   ],
+   "winner": "Ala Apex",
+   "hash": "fc7baed0",
+   "eventHash": "a0d03be2",
+   "events": 3964,
+   "pointsPlay": [
+    26,
+    12
+   ],
+   "pointsAward": [
+    0,
+    0
+   ],
+   "arrowsLegal": [
+    283,
+    181
+   ],
+   "arrowsIllegal": [
+    0,
+    1
+   ],
+   "minors": [
+    0,
+    1
+   ],
+   "majors": [
+    0,
+    0
+   ],
+   "dqs": [
+    0,
+    0
+   ],
+   "turnovers": [
+    83,
+    71
+   ],
+   "timeouts": [
+    2,
+    4
+   ],
+   "subs": [
+    2,
+    1
+   ],
+   "injuries": [
+    2,
+    1
+   ],
+   "reviews": [
+    1,
+    0
+   ],
+   "possChanges": 538,
+   "possSeconds": [
+    1236,
+    1159
+   ],
+   "breakdown": [
+    {
+     "carry": 2,
+     "thrown": 22,
+     "half": 0,
+     "award": 0,
+     "own": 2,
+     "points": 26
+    },
+    {
+     "carry": 0,
+     "thrown": 12,
+     "half": 0,
+     "award": 0,
+     "own": 0,
+     "points": 12
+    }
+   ],
+   "perTeam": [
+    {
+     "shots": 73,
+     "goals": 12,
+     "passAtt": 897,
+     "passComp": 776,
+     "tackles": 211,
+     "saves": 29,
+     "interceptions": 90,
+     "arrowHits": 108,
+     "drops": 149,
+     "onField": 12
+    },
+    {
+     "shots": 42,
+     "goals": 6,
+     "passAtt": 778,
+     "passComp": 664,
+     "tackles": 241,
+     "saves": 50,
+     "interceptions": 79,
+     "arrowHits": 53,
+     "drops": 211,
+     "onField": 12
+    }
+   ],
+   "tally": {
+    "tossins": 99,
+    "missedSnaps": 0,
+    "huntRepeats": 0,
+    "dribbles": 0,
+    "carryGoals": 1,
+    "ownGoals": 1
+   },
+   "periodEnds": [
+    "End of P1 8-2",
+    "End of P2 12-6",
+    "End of P3 16-6",
+    "End of P4 26-12"
+   ]
+  },
+  {
+   "home": "Garvian Guardians",
+   "away": "Ndumba Specters",
+   "seed": 1001,
+   "scoring": "flat",
+   "phase": "final",
+   "period": 4,
+   "ticks": 240198,
+   "gameSeconds": 4003.3,
+   "score": [
+    23,
+    19
+   ],
+   "winner": "Garvian Guardians",
+   "hash": "3a337bd8",
+   "eventHash": "d4fe4481",
+   "events": 3953,
+   "pointsPlay": [
+    22,
+    18
+   ],
+   "pointsAward": [
+    1,
+    1
+   ],
+   "arrowsLegal": [
+    183,
+    227
+   ],
+   "arrowsIllegal": [
+    2,
+    3
+   ],
+   "minors": [
+    2,
+    3
+   ],
+   "majors": [
+    0,
+    0
+   ],
+   "dqs": [
+    0,
+    0
+   ],
+   "turnovers": [
+    71,
+    73
+   ],
+   "timeouts": [
+    3,
+    4
+   ],
+   "subs": [
+    4,
+    1
+   ],
+   "injuries": [
+    4,
+    0
+   ],
+   "reviews": [
+    1,
+    0
+   ],
+   "possChanges": 532,
+   "possSeconds": [
+    1234,
+    1160
+   ],
+   "breakdown": [
+    {
+     "carry": 0,
+     "thrown": 22,
+     "half": 1,
+     "award": 0,
+     "own": 0,
+     "points": 23
+    },
+    {
+     "carry": 0,
+     "thrown": 14,
+     "half": 1,
+     "award": 0,
+     "own": 4,
+     "points": 19
+    }
+   ],
+   "perTeam": [
+    {
+     "shots": 59,
+     "goals": 11,
+     "passAtt": 850,
+     "passComp": 732,
+     "tackles": 212,
+     "saves": 29,
+     "interceptions": 108,
+     "arrowHits": 57,
+     "drops": 194,
+     "onField": 12
+    },
+    {
+     "shots": 41,
+     "goals": 7,
+     "passAtt": 811,
+     "passComp": 666,
+     "tackles": 231,
+     "saves": 34,
+     "interceptions": 64,
+     "arrowHits": 69,
+     "drops": 211,
+     "onField": 12
+    }
+   ],
+   "tally": {
+    "tossins": 134,
+    "missedSnaps": 0,
+    "huntRepeats": 0,
+    "dribbles": 0,
+    "carryGoals": 0,
+    "ownGoals": 2
+   },
+   "periodEnds": [
+    "End of P1 7-2",
+    "End of P2 13-4",
+    "End of P3 21-19",
+    "End of P4 23-19"
+   ]
+  },
+  {
+   "home": "Khemara Sunscourge",
+   "away": "Zafiren Tidewings",
+   "seed": 1002,
+   "scoring": "flat",
+   "phase": "final",
+   "period": 4,
+   "ticks": 236836,
+   "gameSeconds": 3947.3,
+   "score": [
+    12,
+    2
+   ],
+   "winner": "Khemara Sunscourge",
+   "hash": "f61970da",
+   "eventHash": "d54f4c6c",
+   "events": 3825,
+   "pointsPlay": [
+    12,
+    2
+   ],
+   "pointsAward": [
+    0,
+    0
+   ],
+   "arrowsLegal": [
+    158,
+    250
+   ],
+   "arrowsIllegal": [
+    0,
+    2
+   ],
+   "minors": [
+    1,
+    3
+   ],
+   "majors": [
+    0,
+    0
+   ],
+   "dqs": [
+    0,
+    0
+   ],
+   "turnovers": [
+    68,
+    92
+   ],
+   "timeouts": [
+    0,
+    2
+   ],
+   "subs": [
+    0,
+    1
+   ],
+   "injuries": [
+    0,
+    0
+   ],
+   "reviews": [
+    0,
+    0
+   ],
+   "possChanges": 499,
+   "possSeconds": [
+    1212,
+    1183
+   ],
+   "breakdown": [
+    {
+     "carry": 0,
+     "thrown": 12,
+     "half": 0,
+     "award": 0,
+     "own": 0,
+     "points": 12
+    },
+    {
+     "carry": 0,
+     "thrown": 2,
+     "half": 0,
+     "award": 0,
+     "own": 0,
+     "points": 2
+    }
+   ],
+   "perTeam": [
+    {
+     "shots": 64,
+     "goals": 6,
+     "passAtt": 788,
+     "passComp": 687,
+     "tackles": 259,
+     "saves": 10,
+     "interceptions": 91,
+     "arrowHits": 40,
+     "drops": 239,
+     "onField": 12
+    },
+    {
+     "shots": 14,
+     "goals": 1,
+     "passAtt": 813,
+     "passComp": 667,
+     "tackles": 197,
+     "saves": 47,
+     "interceptions": 62,
+     "arrowHits": 58,
+     "drops": 253,
+     "onField": 12
+    }
+   ],
+   "tally": {
+    "tossins": 124,
+    "missedSnaps": 0,
+    "huntRepeats": 0,
+    "dribbles": 0,
+    "carryGoals": 0,
+    "ownGoals": 0
+   },
+   "periodEnds": [
+    "End of P1 0-2",
+    "End of P2 4-2",
+    "End of P3 4-2",
+    "End of P4 12-2"
+   ]
+  },
+  {
+   "home": "Ursiria 65ers",
+   "away": "Garahviq Immortals",
+   "seed": 1003,
+   "scoring": "flat",
+   "phase": "final",
+   "period": 4,
+   "ticks": 227912,
+   "gameSeconds": 3798.5,
+   "score": [
+    20,
+    34
+   ],
+   "winner": "Garahviq Immortals",
+   "hash": "fb393b3e",
+   "eventHash": "85c02f46",
+   "events": 3750,
+   "pointsPlay": [
+    20,
+    32
+   ],
+   "pointsAward": [
+    0,
+    2
+   ],
+   "arrowsLegal": [
+    279,
+    199
+   ],
+   "arrowsIllegal": [
+    2,
+    1
+   ],
+   "minors": [
+    5,
+    1
+   ],
+   "majors": [
+    0,
+    0
+   ],
+   "dqs": [
+    0,
+    0
+   ],
+   "turnovers": [
+    74,
+    56
+   ],
+   "timeouts": [
+    4,
+    2
+   ],
+   "subs": [
+    1,
+    2
+   ],
+   "injuries": [
+    1,
+    2
+   ],
+   "reviews": [
+    0,
+    0
+   ],
+   "possChanges": 476,
+   "possSeconds": [
+    1096,
+    1299
+   ],
+   "breakdown": [
+    {
+     "carry": 0,
+     "thrown": 16,
+     "half": 0,
+     "award": 0,
+     "own": 4,
+     "points": 20
+    },
+    {
+     "carry": 6,
+     "thrown": 26,
+     "half": 2,
+     "award": 0,
+     "own": 0,
+     "points": 34
+    }
+   ],
+   "perTeam": [
+    {
+     "shots": 40,
+     "goals": 8,
+     "passAtt": 735,
+     "passComp": 617,
+     "tackles": 166,
+     "saves": 44,
+     "interceptions": 61,
+     "arrowHits": 83,
+     "drops": 191,
+     "onField": 12
+    },
+    {
+     "shots": 61,
+     "goals": 16,
+     "passAtt": 840,
+     "passComp": 742,
+     "tackles": 220,
+     "saves": 19,
+     "interceptions": 84,
+     "arrowHits": 55,
+     "drops": 189,
+     "onField": 12
+    }
+   ],
+   "tally": {
+    "tossins": 106,
+    "missedSnaps": 0,
+    "huntRepeats": 0,
+    "dribbles": 0,
+    "carryGoals": 3,
+    "ownGoals": 2
+   },
+   "periodEnds": [
+    "End of P1 6-10",
+    "End of P2 14-18",
+    "End of P3 18-24",
+    "End of P4 20-34"
+   ]
+  },
+  {
+   "home": "Ashkara Ignivars",
+   "away": "Kasuf Bloodravens",
+   "seed": 1004,
+   "scoring": "flat",
+   "phase": "final",
+   "period": 4,
+   "ticks": 232287,
+   "gameSeconds": 3871.5,
+   "score": [
+    34,
+    17
+   ],
+   "winner": "Ashkara Ignivars",
+   "hash": "735ea374",
+   "eventHash": "e45aca43",
+   "events": 3867,
+   "pointsPlay": [
+    28,
+    14
+   ],
+   "pointsAward": [
+    6,
+    3
+   ],
+   "arrowsLegal": [
+    258,
+    206
+   ],
+   "arrowsIllegal": [
+    2,
+    2
+   ],
+   "minors": [
+    3,
+    5
+   ],
+   "majors": [
+    0,
+    0
+   ],
+   "dqs": [
+    0,
+    0
+   ],
+   "turnovers": [
+    62,
+    70
+   ],
+   "timeouts": [
+    1,
+    3
+   ],
+   "subs": [
+    0,
+    0
+   ],
+   "injuries": [
+    0,
+    0
+   ],
+   "reviews": [
+    1,
+    1
+   ],
+   "possChanges": 547,
+   "possSeconds": [
+    1222,
+    1173
+   ],
+   "breakdown": [
+    {
+     "carry": 4,
+     "thrown": 24,
+     "half": 2,
+     "award": 4,
+     "own": 0,
+     "points": 34
+    },
+    {
+     "carry": 0,
+     "thrown": 14,
+     "half": 3,
+     "award": 0,
+     "own": 0,
+     "points": 17
+    }
+   ],
+   "perTeam": [
+    {
+     "shots": 61,
+     "goals": 14,
+     "passAtt": 845,
+     "passComp": 701,
+     "tackles": 197,
+     "saves": 33,
+     "interceptions": 93,
+     "arrowHits": 97,
+     "drops": 158,
+     "onField": 12
+    },
+    {
+     "shots": 49,
+     "goals": 7,
+     "passAtt": 796,
+     "passComp": 666,
+     "tackles": 201,
+     "saves": 38,
+     "interceptions": 107,
+     "arrowHits": 45,
+     "drops": 180,
+     "onField": 12
+    }
+   ],
+   "tally": {
+    "tossins": 125,
+    "missedSnaps": 0,
+    "huntRepeats": 0,
+    "dribbles": 0,
+    "carryGoals": 2,
+    "ownGoals": 0
+   },
+   "periodEnds": [
+    "End of P1 0-1",
+    "End of P2 17-5",
+    "End of P3 22-11",
+    "End of P4 34-17"
+   ]
+  },
+  {
+   "home": "G’Yanka Vanagu",
+   "away": "Priya Arpaqu",
+   "seed": 1005,
+   "scoring": "flat",
+   "phase": "final",
+   "period": 4,
+   "ticks": 234173,
+   "gameSeconds": 3902.9,
+   "score": [
+    49,
+    6
+   ],
+   "winner": "G’Yanka Vanagu",
+   "hash": "17fc9e44",
+   "eventHash": "edee54b3",
+   "events": 3816,
+   "pointsPlay": [
+    48,
+    6
+   ],
+   "pointsAward": [
+    1,
+    0
+   ],
+   "arrowsLegal": [
+    142,
+    273
+   ],
+   "arrowsIllegal": [
+    1,
+    1
+   ],
+   "minors": [
+    1,
+    4
+   ],
+   "majors": [
+    0,
+    0
+   ],
+   "dqs": [
+    0,
+    0
+   ],
+   "turnovers": [
+    42,
+    90
+   ],
+   "timeouts": [
+    1,
+    3
+   ],
+   "subs": [
+    0,
+    0
+   ],
+   "injuries": [
+    0,
+    0
+   ],
+   "reviews": [
+    0,
+    0
+   ],
+   "possChanges": 528,
+   "possSeconds": [
+    1236,
+    1157
+   ],
+   "breakdown": [
+    {
+     "carry": 0,
+     "thrown": 48,
+     "half": 1,
+     "award": 0,
+     "own": 0,
+     "points": 49
+    },
+    {
+     "carry": 0,
+     "thrown": 6,
+     "half": 0,
+     "award": 0,
+     "own": 0,
+     "points": 6
+    }
+   ],
+   "perTeam": [
+    {
+     "shots": 109,
+     "goals": 24,
+     "passAtt": 772,
+     "passComp": 678,
+     "tackles": 245,
+     "saves": 14,
+     "interceptions": 94,
+     "arrowHits": 33,
+     "drops": 166,
+     "onField": 12
+    },
+    {
+     "shots": 22,
+     "goals": 3,
+     "passAtt": 829,
+     "passComp": 674,
+     "tackles": 140,
+     "saves": 60,
+     "interceptions": 75,
+     "arrowHits": 80,
+     "drops": 231,
+     "onField": 12
+    }
+   ],
+   "tally": {
+    "tossins": 138,
+    "missedSnaps": 0,
+    "huntRepeats": 0,
+    "dribbles": 0,
+    "carryGoals": 0,
+    "ownGoals": 0
+   },
+   "periodEnds": [
+    "End of P1 14-0",
+    "End of P2 24-4",
+    "End of P3 43-4",
+    "End of P4 49-6"
+   ]
+  }
+ ]
+}

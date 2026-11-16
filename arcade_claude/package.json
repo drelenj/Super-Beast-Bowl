@@ -13,7 +13,7 @@
     "stats": "tsx scripts/stats20.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src scripts --ext .ts",
+    "lint": "eslint src scripts",
     "smoke": "node tests/smoke.cjs",
     "bench": "tsx scripts/bench.ts"
   },

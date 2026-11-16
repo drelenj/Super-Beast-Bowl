@@ -131,7 +131,7 @@ function carrierThink(e: Engine, a: Athlete) {
   const gx = e.oppGoalX(a.team);
   const dGoal = hyp(gx - a.x, a.y);
   const pressure = opponentsNear(list, a, a.x, a.y);
-  const q = (a.d.ovr - 40) / 60;
+  const _q = (a.d.ovr - 40) / 60;
   if (a.role === 'keeper') {
     if (e.time - e.holderSince > 0.6) { const r = bestPass(e, a, true); if (r >= 0) { a.plan.pass = r; return; } }
     setTarget(a, a.x, a.y, false); return;
@@ -167,8 +167,8 @@ function supportThink(e: Engine, a: Athlete, b: { x: number; y: number }) {
   const list = seen(e, a);
   const bu = e.u(a.team, b.x);
   const lineAhead = [-6, 8, 18][a.line] ?? 6;
-  let u = Math.max(6, Math.min(79, bu + lineAhead));
-  let y = a.slotY * 30 + (b.y * 0.25);
+  const u = Math.max(6, Math.min(79, bu + lineAhead));
+  const y = a.slotY * 30 + (b.y * 0.25);
   const x0 = e.xFromU(a.team, u);
   // get open: move away from nearest seen opponent
   let ox = 0, oy = 0;
@@ -218,7 +218,7 @@ function defendThink(e: Engine, a: Athlete, b: { x: number; y: number; holder: n
   setTarget(a, tx, ty, hyp(tx - a.x, ty - a.y) > 6);
 }
 
-function looseThink(e: Engine, a: Athlete, b: { x: number; y: number; z: number }) {
+function looseThink(e: Engine, a: Athlete, _b: { x: number; y: number; z: number }) {
   // Predict the flight of the ball from what this athlete last saw, then run onto the earliest point
   // on that flight they can reach (not just where it lands): fast, flat passes must be met in the air.
   const list = seen(e, a);
