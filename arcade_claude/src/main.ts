@@ -5,6 +5,8 @@ import { Intent, NO_INTENT, Settings } from './engine/types';
 import { Renderer, fmtClock } from './render';
 import { touch, consumeTouchEdges, detectTouch, initTouch } from './touch';
 import { ballTraj, interceptAt, REACH } from './engine/intercept';
+import { audio } from './audio';
+for (const t of ['pointerdown', 'keydown'] as const) window.addEventListener(t, () => audio.unlock(), { once: true });
 
 const $ = (id: string) => document.getElementById(id)!;
 const canvas = $('c') as HTMLCanvasElement;
@@ -288,7 +290,7 @@ function frame(now: number) {
         humanControl(e, 0, app.mode === 'hvh' ? P1 : P1solo, 0);
         if (app.mode === 'hvh') humanControl(e, 1, P2, 1);
       }
-      app.acc += dtReal * app.speed;
+      app.acc += dtReal * app.speed * R.timeScale;
       let n = 0;
       while (app.acc >= DT && n < 1000) {
         e.step(); app.acc -= DT; n++;
@@ -298,12 +300,13 @@ function frame(now: number) {
       if ((e.phase as string) === 'break') { if (q.get('autobreak')) e.resumeFromBreak(); else showBreak(e); }
       if ((e.phase as string) === 'final') showFinal(e);
     }
+    R.alpha = Math.max(0, Math.min(1, app.acc / DT));
     R.cam.update(e, canvas.width / R.dpr, canvas.height / R.dpr, dtReal);
     const sel = e.teams.filter((t) => t.human).map((t) => t.selected);
     R.draw(e, [COLORS[e.teams[0].data.franchise], COLORS[e.teams[1].data.franchise]], app.wallT, sel);
     hud(e);
   } else {
-    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = "#0b0e16"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    R.drawTitle(app.wallT);
   }
   pressed.clear(); consumeTouchEdges();
   requestAnimationFrame(frame);

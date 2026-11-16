@@ -24,6 +24,12 @@ export class Camera {
 export class Renderer {
   cam = new Camera();
   dpr = 1;
+  /** sim-time multiplier requested by the renderer (slow-mo on goals); main loop multiplies by it */
+  timeScale = 1;
+  /** 0..1 fraction of the way from the previous sim step to the current one (render interpolation) */
+  alpha = 1;
+  /** title-screen backdrop (animated hero players); called by the main loop when no match is running */
+  drawTitle(_wallT: number): void { const c = this.ctx; c.setTransform(1, 0, 0, 1, 0, 0); c.fillStyle = '#0b0e16'; c.fillRect(0, 0, c.canvas.width, c.canvas.height); }
   trail: [number, number, number][] = [];
   logos: Record<string, HTMLImageElement> = {};
   constructor(public ctx: CanvasRenderingContext2D) {}

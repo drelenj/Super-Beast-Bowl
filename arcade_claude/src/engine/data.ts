@@ -1,30 +1,4 @@
-import { Attr, PlayerData, PosCode, TeamData } from './types';
-import { SPEED_UNIT } from './constants';
-
-/**
- * ARCADE PLACEHOLDER: OVR -> attribute mapping. The workbook has ONE OVR per player and no
- * per-skill ratings, so every attribute here is a labelled arcade placeholder, never canon.
- * Speed follows the canon scale: speed rating r -> r x 44.704 m/s.
- */
-export function attrsFromOvr(ovr: number, pos: PosCode): Attr {
-  const q = Math.max(0, Math.min(1, (ovr - 40) / 60)); // 0..1
-  const posSpeed: Record<string, number> = { STR: 0.006, SCT: 0.01, HNT: 0.008, TRK: 0.008, PFD: 0.002, PDR: 0, SEN: 0, TRP: 0, GRD: -0.004, KPR: -0.012, ARC: -0.015 };
-  const speedRating = 0.17 + 0.045 * q + (posSpeed[pos] ?? 0); // ~7.6..10.1 m/s sprint
-  const strong = pos === 'GRD' || pos === 'PFD' || pos === 'SEN' || pos === 'TRP';
-  return {
-    speedRating,
-    top: speedRating * SPEED_UNIT,
-    accel: 5.5 + 2.5 * q,
-    throwV: 19 + 9 * q + (pos === 'STR' || pos === 'PDR' ? 2 : 0),
-    acc: 0.55 + 0.4 * q + (pos === 'PDR' ? 0.05 : 0),
-    catchS: 0.6 + 0.35 * q + (pos === 'KPR' ? 0.05 : 0),
-    tackle: 0.4 + 0.45 * q + (pos === 'TRK' || pos === 'GRD' || pos === 'HNT' ? 0.08 : 0),
-    strength: 0.4 + 0.4 * q + (strong ? 0.1 : 0),
-    view: 45 + 30 * q,
-    react: 0.32 - 0.16 * q,
-    archery: 0.35 + 0.6 * q,
-  };
-}
+import { PlayerData, PosCode, TeamData } from './types';
 
 /** ARCADE PLACEHOLDER: position -> behaviour line preference (0 back .. 1 forward). */
 export const LINE_PREF: Record<string, number> = { GRD: 0, TRP: 0.2, SEN: 0.35, TRK: 0.5, PDR: 0.6, HNT: 0.7, PFD: 0.8, SCT: 0.9, STR: 1 };

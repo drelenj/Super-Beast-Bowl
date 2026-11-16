@@ -5,7 +5,10 @@ import * as C from './constants';
 const hyp = (...v: number[]) => { let s = 0; for (const x of v) s += x * x; return Math.sqrt(s); };
 import { Rng } from './rng';
 import { Arrow, Athlete, GameEvent, Intent, NO_INTENT, Phase, Settings, TeamData, newStats } from './types';
-import { attrsFromOvr, buildLineup, lookFor } from './data';
+import { buildLineup, lookFor } from './data';
+import { attrsFor, bodyFor } from './physics';
+import { techRatings } from '../ratings/tech';
+import type { MatchStats, Whistle, PlayerData } from './types';
 import { aiThink, aiSteer } from './ai';
 import { REACH } from './intercept';
 
@@ -42,6 +45,12 @@ export class Engine {
   flash: { text: string; t: number; team: number } | null = null;
   humanIntent: [Intent | null, Intent | null] = [null, null];
   checkpoints: string[] = [];
+  /** every gameday athlete (22 per team): the 24 on the field (also in `ath`) plus reserves */
+  squad: Athlete[] = [];
+  matchStats: MatchStats = { pointsPlay: [0, 0], pointsAward: [0, 0], arrowsLegal: [0, 0], arrowsIllegal: [0, 0], minors: [0, 0], majors: [0, 0], dqs: [0, 0], turnovers: [0, 0], timeouts: [0, 0], subs: [0, 0], injuries: [0, 0], reviews: [0, 0] };
+  /** latest referee announcement (why / who / penalty), counts down in real sim time; null when none */
+  whistle: Whistle | null = null;
+  timeoutsLeft: [number, number] = [2, 2];
   catchFx: { x: number; y: number; z: number; t: number; ok: boolean; team: number }[] = [];
 
   constructor(home: TeamData, away: TeamData, settings: Settings, human: [boolean, boolean] = [false, false]) {
@@ -53,9 +62,11 @@ export class Engine {
     this.ball = { x: 0, y: 0, z: C.BALL_R, vx: 0, vy: 0, vz: 0, holder: -1, lastTouch: -1, lastTouchTeam: -1, passer: -1, isShot: false, shotTeam: -1, releaseDist: 0, inFlight: false, receiver: -1, passId: 0 };
     [home, away].forEach((td, ti) => {
       const lu = buildLineup(td);
-      const add = (p: typeof lu.keeper, role: Athlete['role'], line: number, slotY: number) => {
+      const add = (p: PlayerData, role: Athlete['role'], line: number, slotY: number) => {
+        const tech = techRatings(p);
         const a: Athlete = {
-          idx: this.ath.length, team: ti as 0 | 1, d: p, a: attrsFromOvr(p.ovr, p.pos), role, line, slotY,
+          idx: this.ath.length, team: ti as 0 | 1, d: p, a: attrsFor(p.phys, tech), role, line, slotY,
+          tech, body: bodyFor(p), px: 0, py: 0, stamina: 1, injured: false, onField: true, jumpT: 0,
           x: 0, y: 0, z: 0, vx: 0, vy: 0, facing: 0, intent: NO_INTENT(),
           frozenT: 0, immuneT: 0, recoverT: 0, groundedT: 0, stumbleT: 0, actT: 0, act: '', celebrateT: 0, noCatchT: 0,
           excludedT: 0, dq: false, minors: 0, majors: 0, kzT: 0,

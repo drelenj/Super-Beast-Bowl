@@ -3,3 +3,4 @@ assets/logos_raw/
 node_modules/
 dist/
 test-results/
+data/source/
